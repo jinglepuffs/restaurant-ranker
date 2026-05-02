@@ -96,10 +96,10 @@ export default function RestaurantDetail() {
   if (loading) return <div className="min-h-screen"><Header /><p className="text-center py-12 text-warm-700">loading...</p></div>;
   if (!restaurant) return <div className="min-h-screen"><Header /><p className="text-center py-12 text-warm-700">restaurant not found</p></div>;
 
-  const avgFood = ratings.length ? ratings.reduce((a, b) => a + Number(b.food_score), 0) / ratings.length : null;
-  const avgVibe = ratings.length ? ratings.reduce((a, b) => a + Number(b.vibe_score), 0) / ratings.length : null;
-  const avgService = ratings.length ? ratings.reduce((a, b) => a + Number(b.service_score), 0) / ratings.length : null;
-  const total = avgFood !== null ? avgFood + avgVibe + avgService : null;
+ const avgFood = ratings.length ? ratings.reduce((a, b) => a + Number(b.food_score), 0) / ratings.length : null;
+ const avgVibe = ratings.length ? ratings.reduce((a, b) => a + Number(b.vibe_score), 0) / ratings.length : null;
+ const avgService = ratings.length ? ratings.reduce((a, b) => a + Number(b.service_score), 0) / ratings.length : null;
+ const total = avgFood !== null ? (avgFood * 3 + avgVibe + avgService) / 5 : null;
   const myRating = user && ratings.find(r => r.rater_id === user.id);
 
   return (
