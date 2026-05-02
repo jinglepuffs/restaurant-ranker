@@ -124,7 +124,7 @@ export default function RestaurantDetail() {
             {total !== null && (
               <div className="bg-warm-400 text-white rounded-2xl px-4 py-2 text-center">
                 <div className="text-2xl font-bold">{total.toFixed(1)}</div>
-                <div className="text-xs opacity-90">/ 50</div>
+                <div className="text-xs opacity-90">/ 10</div>
               </div>
             )}
           </div>
