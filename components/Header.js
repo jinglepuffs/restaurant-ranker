@@ -25,7 +25,7 @@ export default function Header() {
     <header className="bg-cream-100 border-b border-cream-300 px-4 py-4 sm:px-8">
       <div className="max-w-6xl mx-auto flex items-center justify-between">
         <Link href="/" className="text-2xl font-bold text-warm-800 hover:text-warm-500 transition">
-          🍽️ our restaurant ranker
+          🍽️ The Restaurant Ranker
         </Link>
         <nav className="flex items-center gap-3 text-sm">
           <Link href="/" className="text-warm-700 hover:text-warm-500">all</Link>
