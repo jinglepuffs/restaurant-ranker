@@ -102,7 +102,7 @@ export default function Home() {
                     #{idx + 1}
                   </span>
                   <span className="absolute top-2 right-2 bg-white text-warm-800 text-xs font-medium px-2 py-1 rounded-full border border-cream-300">
-                    {r.total !== null ? `${r.total.toFixed(1)} / 50` : 'unrated'}
+                    {r.total !== null ? `${r.total.toFixed(1)} / 10` : 'Unrated'}
                   </span>
                 </div>
                 <div className="p-3">
