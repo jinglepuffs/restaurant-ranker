@@ -208,8 +208,8 @@ export default function RestaurantDetail() {
                 <div key={r.id} className="flex justify-between items-center text-sm border-b border-dashed border-cream-300 pb-2 last:border-0">
                   <span className="font-medium text-warm-800">{r.rater_name}</span>
                   <span className="text-warm-700">
-                    {r.food_score} + {r.vibe_score} + {r.service_score} =
-                    <span className="font-medium text-warm-800 ml-1">{(Number(r.food_score) + Number(r.vibe_score) + Number(r.service_score)).toFixed(1)} / 50</span>
+                    {r.food_score} × 3 + {r.vibe_score} + {r.service_score} =
+                    <span className="font-medium text-warm-800 ml-1">{((Number(r.food_score) * 3 + Number(r.vibe_score) + Number(r.service_score)) / 5).toFixed(1)} / 10</span>
                   </span>
                 </div>
               ))}
