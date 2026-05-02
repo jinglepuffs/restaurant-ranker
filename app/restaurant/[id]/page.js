@@ -187,7 +187,7 @@ export default function RestaurantDetail() {
 
           {showRatingForm && (
             <form onSubmit={submitRating} className="bg-cream-100 rounded-xl p-3 mb-3 grid grid-cols-3 gap-2 items-end">
-              <label className="flex flex-col text-xs text-warm-700">food (/30)
+              <label className="flex flex-col text-xs text-warm-700">food (/10)
                 <input type="number" min="0" max="30" step="0.5" required value={food} onChange={(e) => setFood(e.target.value)}
                   className="bg-white border border-cream-300 rounded-lg px-2 py-1 mt-1" /></label>
               <label className="flex flex-col text-xs text-warm-700">vibe (/10)
