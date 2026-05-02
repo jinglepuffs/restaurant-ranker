@@ -1,7 +1,7 @@
 import './globals.css';
 
 export const metadata = {
-  title: 'Restaurant Ranker',
+  title: 'The Foodiotic Table',
   description: 'Our collaborative restaurant rankings',
 };
 
