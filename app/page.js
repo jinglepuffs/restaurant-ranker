@@ -23,7 +23,7 @@ export default function Home() {
       const avgFood = rs.length ? rs.reduce((a, b) => a + Number(b.food_score), 0) / rs.length : null;
       const avgVibe = rs.length ? rs.reduce((a, b) => a + Number(b.vibe_score), 0) / rs.length : null;
       const avgService = rs.length ? rs.reduce((a, b) => a + Number(b.service_score), 0) / rs.length : null;
-      const total = avgFood !== null ? avgFood + avgVibe + avgService : null;
+      const total = avgFood !== null ? (avgFood * 3 + avgVibe + avgService) / 5 : null;
       const lastVisit = vs.length ? vs.map(v => v.visit_date).sort().reverse()[0] : null;
       return { ...r, avgFood, avgVibe, avgService, total, ratingCount: rs.length, visitCount: vs.length, lastVisit };
     });
