@@ -66,7 +66,7 @@ export default function Home() {
         <div className="flex flex-wrap gap-2 mb-6 items-center">
           <input
             type="text"
-            placeholder="search restaurants, dishes, neighborhoods..."
+            placeholder="Search restaurants, dishes, neighborhoods..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="flex-1 min-w-[200px] bg-white border border-cream-300 rounded-full px-4 py-2 text-sm text-warm-800 focus:outline-none focus:border-warm-400"
