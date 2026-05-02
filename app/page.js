@@ -57,7 +57,7 @@ export default function Home() {
       <Header />
       <main className="max-w-6xl mx-auto px-4 py-6 sm:px-8">
         <div className="mb-6">
-          <h1 className="text-4xl font-bold text-warm-800 mb-1">our rankings</h1>
+          <h1 className="text-4xl font-bold text-warm-800 mb-1">Our Rankings</h1>
           <p className="text-warm-700">
             {restaurants.length} {restaurants.length === 1 ? 'spot' : 'spots'} ranked
           </p>
