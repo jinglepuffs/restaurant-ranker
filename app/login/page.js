@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { createClient } from '../../lib/supabase';
 import Header from '../../components/Header';
 
-const SIGNUP_CODE = 'foodclub2026';
+const SIGNUP_CODE = 'sphericallygifted2026';
 
 export default function Login() {
   const [mode, setMode] = useState('signin');
