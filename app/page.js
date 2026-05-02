@@ -112,7 +112,7 @@ export default function Home() {
                   </p>
                   {r.total !== null && (
                     <div className="flex flex-col gap-1 text-xs text-warm-700">
-                      <ScoreBar label="food" value={r.avgFood} max={30} />
+                      <ScoreBar label="food" value={r.avgFood} max={10} />
                       <ScoreBar label="vibe" value={r.avgVibe} max={10} />
                       <ScoreBar label="svc" value={r.avgService} max={10} />
                     </div>
