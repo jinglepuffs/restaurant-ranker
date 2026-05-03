@@ -82,7 +82,7 @@ export default function Home() {
                   : 'bg-white border border-cream-300 text-warm-700 hover:border-warm-400'
               }`}
             >
-              {c}
+              {c.charAt(0).toUpperCase() + c.slice(1)}
             </button>
           ))}
         </div>
