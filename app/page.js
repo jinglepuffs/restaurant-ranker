@@ -51,7 +51,13 @@ export default function Home() {
     const matchCuisine = cuisineFilters.length === 0 ||
       (r.cuisine || []).some(c => cuisineFilters.includes(c));
     return matchSearch && matchCuisine;
-});
+  });
+
+  const toggleCuisine = (c) => {
+    setCuisineFilters(cuisineFilters.includes(c)
+      ? cuisineFilters.filter(f => f !== c)
+      : [...cuisineFilters, c]);
+  };
 
   return (
     <div className="min-h-screen">
@@ -60,7 +66,7 @@ export default function Home() {
         <div className="mb-6">
           <h1 className="text-4xl font-bold text-warm-800 mb-1">Our Rankings</h1>
           <p className="text-warm-700">
-            {restaurants.length} {restaurants.length === 1 ? 'spot' : 'spots'} ranked
+            {restaurants.length} {restaurants.length === 1 ? 'Spot' : 'Spots'} Ranked
           </p>
         </div>
 
@@ -72,27 +78,40 @@ export default function Home() {
             onChange={(e) => setSearch(e.target.value)}
             className="flex-1 min-w-[200px] bg-white border border-cream-300 rounded-full px-4 py-2 text-sm text-warm-800 focus:outline-none focus:border-warm-400"
           />
-          {cuisines.map((c) => (
-            <button
-              key={c}
-              onClick={() => setCuisineFilter(c)}
-              className={`px-4 py-2 rounded-full text-sm transition ${
-                cuisineFilter === c
-                  ? 'bg-warm-400 text-white'
-                  : 'bg-white border border-cream-300 text-warm-700 hover:border-warm-400'
-              }`}
-            >
-              {c.charAt(0).toUpperCase() + c.slice(1)}
-            </button>
-          ))}
+          <button
+            onClick={() => setCuisineFilters([])}
+            className={`px-4 py-2 rounded-full text-sm transition ${
+              cuisineFilters.length === 0
+                ? 'bg-warm-400 text-white'
+                : 'bg-white border border-cream-300 text-warm-700 hover:border-warm-400'
+            }`}
+          >
+            All
+          </button>
+          {cuisines.map((c) => {
+            const isActive = cuisineFilters.includes(c);
+            return (
+              <button
+                key={c}
+                onClick={() => toggleCuisine(c)}
+                className={`px-4 py-2 rounded-full text-sm transition ${
+                  isActive
+                    ? 'bg-warm-400 text-white'
+                    : 'bg-white border border-cream-300 text-warm-700 hover:border-warm-400'
+                }`}
+              >
+                {c.charAt(0).toUpperCase() + c.slice(1)}
+              </button>
+            );
+          })}
         </div>
 
         {loading ? (
-          <p className="text-center text-warm-700 py-12">loading delicious things...</p>
+          <p className="text-center text-warm-700 py-12">Loading delicious things...</p>
         ) : filtered.length === 0 ? (
           <div className="text-center py-12">
-            <p className="text-warm-700 text-lg mb-2">no restaurants yet 🍽️</p>
-            <p className="text-warm-700 text-sm">sign in and add your first spot!</p>
+            <p className="text-warm-700 text-lg mb-2">No restaurants yet 🍽️</p>
+            <p className="text-warm-700 text-sm">Sign in and add your first spot!</p>
           </div>
         ) : (
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -113,16 +132,16 @@ export default function Home() {
                   </p>
                   {r.total !== null && (
                     <div className="flex flex-col gap-1 text-xs text-warm-700">
-                      <ScoreBar label="food" value={r.avgFood} max={10} />
-                      <ScoreBar label="vibe" value={r.avgVibe} max={10} />
-                      <ScoreBar label="svc" value={r.avgService} max={10} />
+                      <ScoreBar label="Food" value={r.avgFood} max={10} />
+                      <ScoreBar label="Vibe" value={r.avgVibe} max={10} />
+                      <ScoreBar label="Service" value={r.avgService} max={10} />
                     </div>
                   )}
                   <div className="flex justify-between items-center mt-2 pt-2 border-t border-dashed border-cream-300 text-xs text-warm-700">
                     <span className="bg-cream-200 px-2 py-0.5 rounded-full">
-                      {r.visitCount} {r.visitCount === 1 ? 'visit' : 'visits'}
+                      {r.visitCount} {r.visitCount === 1 ? 'Visit' : 'Visits'}
                     </span>
-                    <span>{r.ratingCount} {r.ratingCount === 1 ? 'rating' : 'ratings'}</span>
+                    <span>{r.ratingCount} {r.ratingCount === 1 ? 'Rating' : 'Ratings'}</span>
                   </div>
                 </div>
               </Link>
@@ -138,7 +157,7 @@ function ScoreBar({ label, value, max }) {
   const pct = (value / max) * 100;
   return (
     <div className="flex items-center gap-1.5">
-      <span className="w-10">{label}</span>
+      <span className="w-12">{label}</span>
       <div className="flex-1 h-1.5 bg-cream-200 rounded-full overflow-hidden">
         <div className="h-full bg-warm-400 rounded-full" style={{ width: `${pct}%` }}></div>
       </div>
