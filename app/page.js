@@ -8,7 +8,7 @@ import Header from '../components/Header';
 export default function Home() {
   const [restaurants, setRestaurants] = useState([]);
   const [search, setSearch] = useState('');
-  const [cuisineFilter, setCuisineFilter] = useState('all');
+  const [cuisineFilters, setCuisineFilters] = useState([]);
   const [loading, setLoading] = useState(true);
   const supabase = createClient();
 
