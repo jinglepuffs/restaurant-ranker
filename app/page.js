@@ -41,7 +41,7 @@ export default function Home() {
     return () => { supabase.removeChannel(channel); };
   }, []);
 
-  const cuisines = ['all', ...new Set(restaurants.flatMap(r => r.cuisine || []))];
+  const cuisines = [...new Set(restaurants.flatMap(r => r.cuisine || []))];
 
   const filtered = restaurants.filter((r) => {
     const matchSearch = !search ||
