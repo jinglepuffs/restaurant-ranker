@@ -48,9 +48,10 @@ export default function Home() {
       r.name?.toLowerCase().includes(search.toLowerCase()) ||
       r.dishes_ordered?.toLowerCase().includes(search.toLowerCase()) ||
       r.neighborhood?.toLowerCase().includes(search.toLowerCase());
-    const matchCuisine = cuisineFilter === 'all' || (r.cuisine || []).includes(cuisineFilter);
+    const matchCuisine = cuisineFilters.length === 0 ||
+      (r.cuisine || []).some(c => cuisineFilters.includes(c));
     return matchSearch && matchCuisine;
-  });
+});
 
   return (
     <div className="min-h-screen">
