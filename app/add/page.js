@@ -1,11 +1,24 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { createClient } from '../../lib/supabase';
 import Header from '../../components/Header';
 
-export default function AddOrEditRestaurant() {
+export default function AddOrEditPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen">
+        <Header />
+        <p className="text-center py-12 text-warm-700">Loading...</p>
+      </div>
+    }>
+      <AddOrEditRestaurant />
+    </Suspense>
+  );
+}
+
+function AddOrEditRestaurant() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const editId = searchParams.get('edit');
@@ -35,7 +48,6 @@ export default function AddOrEditRestaurant() {
     });
   }, []);
 
-  // If editing, load the existing restaurant data
   useEffect(() => {
     if (!isEditMode) return;
     supabase.from('restaurants').select('*').eq('id', editId).single().then(({ data, error }) => {
@@ -77,7 +89,6 @@ export default function AddOrEditRestaurant() {
     setLoading(true);
     setError('');
 
-    // Upload any new photos
     const newPhotoUrls = [];
     for (const file of photoFiles) {
       const fileName = `${Date.now()}-${Math.random().toString(36).slice(2)}-${file.name}`;
