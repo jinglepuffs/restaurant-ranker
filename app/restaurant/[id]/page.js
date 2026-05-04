@@ -93,13 +93,13 @@ export default function RestaurantDetail() {
     router.push('/');
   };
 
-  if (loading) return <div className="min-h-screen"><Header /><p className="text-center py-12 text-warm-700">loading...</p></div>;
-  if (!restaurant) return <div className="min-h-screen"><Header /><p className="text-center py-12 text-warm-700">restaurant not found</p></div>;
+  if (loading) return <div className="min-h-screen"><Header /><p className="text-center py-12 text-warm-700">Loading...</p></div>;
+  if (!restaurant) return <div className="min-h-screen"><Header /><p className="text-center py-12 text-warm-700">Restaurant not found</p></div>;
 
- const avgFood = ratings.length ? ratings.reduce((a, b) => a + Number(b.food_score), 0) / ratings.length : null;
- const avgVibe = ratings.length ? ratings.reduce((a, b) => a + Number(b.vibe_score), 0) / ratings.length : null;
- const avgService = ratings.length ? ratings.reduce((a, b) => a + Number(b.service_score), 0) / ratings.length : null;
- const total = avgFood !== null ? (avgFood * 3 + avgVibe + avgService) / 5 : null;
+  const avgFood = ratings.length ? ratings.reduce((a, b) => a + Number(b.food_score), 0) / ratings.length : null;
+  const avgVibe = ratings.length ? ratings.reduce((a, b) => a + Number(b.vibe_score), 0) / ratings.length : null;
+  const avgService = ratings.length ? ratings.reduce((a, b) => a + Number(b.service_score), 0) / ratings.length : null;
+  const total = avgFood !== null ? (avgFood * 3 + avgVibe + avgService) / 5 : null;
   const myRating = user && ratings.find(r => r.rater_id === user.id);
 
   return (
@@ -108,7 +108,7 @@ export default function RestaurantDetail() {
       <main className="max-w-4xl mx-auto px-4 py-6">
         {/* Back link */}
         <button onClick={() => router.push('/')} className="text-warm-700 hover:text-warm-500 text-sm mb-4">
-          ← back to all
+          ← Back to All
         </button>
 
         {/* Header */}
@@ -129,21 +129,31 @@ export default function RestaurantDetail() {
             )}
           </div>
 
-          {restaurant.google_maps_url && (
-            <a href={restaurant.google_maps_url} target="_blank" rel="noreferrer"
-              className="inline-block bg-cream-200 text-warm-800 text-sm px-3 py-1.5 rounded-full hover:bg-cream-300 mt-2">
-              📍 open in google maps
-            </a>
-          )}
-          {user && (
-            <button onClick={deleteRestaurant} className="ml-2 text-xs text-red-700 hover:underline">delete restaurant</button>
-          )}
+          <div className="flex flex-wrap gap-2 items-center mt-2">
+            {restaurant.google_maps_url && (
+              <a href={restaurant.google_maps_url} target="_blank" rel="noreferrer"
+                className="bg-cream-200 text-warm-800 text-sm px-3 py-1.5 rounded-full hover:bg-cream-300">
+                📍 Open in Google Maps
+              </a>
+            )}
+            {user && (
+              <>
+                <button onClick={() => router.push(`/add?edit=${id}`)}
+                  className="bg-warm-400 text-white text-sm px-3 py-1.5 rounded-full hover:bg-warm-500">
+                  ✏️ Edit
+                </button>
+                <button onClick={deleteRestaurant} className="text-xs text-red-700 hover:underline ml-1">
+                  Delete Restaurant
+                </button>
+              </>
+            )}
+          </div>
         </div>
 
         {/* Photos */}
         {restaurant.photos?.length > 0 && (
           <div className="bg-white border border-cream-300 rounded-2xl p-4 mb-4">
-            <h2 className="text-warm-800 font-medium mb-3">📸 photos</h2>
+            <h2 className="text-warm-800 font-medium mb-3">📸 Photos</h2>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
               {restaurant.photos.map((url, i) => (
                 <img key={i} src={url} alt="" onClick={() => setLightbox(url)}
@@ -158,13 +168,13 @@ export default function RestaurantDetail() {
           <div className="bg-white border border-cream-300 rounded-2xl p-4 mb-4 space-y-3">
             {restaurant.dishes_ordered && (
               <div>
-                <h3 className="text-warm-800 font-medium mb-1">🍴 dishes ordered</h3>
+                <h3 className="text-warm-800 font-medium mb-1">🍴 Dishes Ordered</h3>
                 <p className="text-warm-700 whitespace-pre-wrap">{restaurant.dishes_ordered}</p>
               </div>
             )}
             {restaurant.notes && (
               <div>
-                <h3 className="text-warm-800 font-medium mb-1">📝 notes</h3>
+                <h3 className="text-warm-800 font-medium mb-1">📝 Notes</h3>
                 <p className="text-warm-700 whitespace-pre-wrap">{restaurant.notes}</p>
               </div>
             )}
@@ -174,34 +184,34 @@ export default function RestaurantDetail() {
         {/* Ratings */}
         <div className="bg-white border border-cream-300 rounded-2xl p-4 mb-4">
           <div className="flex justify-between items-center mb-3">
-            <h2 className="text-warm-800 font-medium">⭐ ratings</h2>
+            <h2 className="text-warm-800 font-medium">⭐ Ratings</h2>
             {user && (
               <button onClick={() => {
                 if (myRating) { setFood(myRating.food_score); setVibe(myRating.vibe_score); setService(myRating.service_score); }
                 setShowRatingForm(!showRatingForm);
               }} className="bg-warm-500 text-white text-sm px-3 py-1.5 rounded-full hover:bg-warm-600">
-                {myRating ? 'update my rating' : '+ add my rating'}
+                {myRating ? 'Update My Rating' : '+ Add My Rating'}
               </button>
             )}
           </div>
 
           {showRatingForm && (
             <form onSubmit={submitRating} className="bg-cream-100 rounded-xl p-3 mb-3 grid grid-cols-3 gap-2 items-end">
-              <label className="flex flex-col text-xs text-warm-700">food (/10)
-                <input type="number" min="0" max="30" step="0.5" required value={food} onChange={(e) => setFood(e.target.value)}
+              <label className="flex flex-col text-xs text-warm-700">Food (/10)
+                <input type="number" min="0" max="10" step="0.5" required value={food} onChange={(e) => setFood(e.target.value)}
                   className="bg-white border border-cream-300 rounded-lg px-2 py-1 mt-1" /></label>
-              <label className="flex flex-col text-xs text-warm-700">vibe (/10)
+              <label className="flex flex-col text-xs text-warm-700">Vibe (/10)
                 <input type="number" min="0" max="10" step="0.5" required value={vibe} onChange={(e) => setVibe(e.target.value)}
                   className="bg-white border border-cream-300 rounded-lg px-2 py-1 mt-1" /></label>
-              <label className="flex flex-col text-xs text-warm-700">service (/10)
+              <label className="flex flex-col text-xs text-warm-700">Service (/10)
                 <input type="number" min="0" max="10" step="0.5" required value={service} onChange={(e) => setService(e.target.value)}
                   className="bg-white border border-cream-300 rounded-lg px-2 py-1 mt-1" /></label>
-              <button type="submit" className="col-span-3 bg-warm-500 text-white rounded-full py-1.5 text-sm hover:bg-warm-600">save</button>
+              <button type="submit" className="col-span-3 bg-warm-500 text-white rounded-full py-1.5 text-sm hover:bg-warm-600">Save</button>
             </form>
           )}
 
           {ratings.length === 0 ? (
-            <p className="text-warm-700 text-sm">no ratings yet</p>
+            <p className="text-warm-700 text-sm">No ratings yet</p>
           ) : (
             <div className="space-y-2">
               {ratings.map(r => (
@@ -209,7 +219,9 @@ export default function RestaurantDetail() {
                   <span className="font-medium text-warm-800">{r.rater_name}</span>
                   <span className="text-warm-700">
                     {r.food_score} × 3 + {r.vibe_score} + {r.service_score} =
-                    <span className="font-medium text-warm-800 ml-1">{((Number(r.food_score) * 3 + Number(r.vibe_score) + Number(r.service_score)) / 5).toFixed(1)} / 10</span>
+                    <span className="font-medium text-warm-800 ml-1">
+                      {((Number(r.food_score) * 3 + Number(r.vibe_score) + Number(r.service_score)) / 5).toFixed(1)} / 10
+                    </span>
                   </span>
                 </div>
               ))}
@@ -220,39 +232,39 @@ export default function RestaurantDetail() {
         {/* Visits */}
         <div className="bg-white border border-cream-300 rounded-2xl p-4 mb-4">
           <div className="flex justify-between items-center mb-3">
-            <h2 className="text-warm-800 font-medium">📅 visits ({visits.length})</h2>
+            <h2 className="text-warm-800 font-medium">📅 Visits ({visits.length})</h2>
             {user && (
               <button onClick={() => setShowVisitForm(!showVisitForm)}
                 className="bg-warm-500 text-white text-sm px-3 py-1.5 rounded-full hover:bg-warm-600">
-                + log visit
+                + Log Visit
               </button>
             )}
           </div>
 
           {showVisitForm && (
             <form onSubmit={submitVisit} className="bg-cream-100 rounded-xl p-3 mb-3 flex flex-col gap-2">
-              <label className="flex flex-col text-xs text-warm-700">date
+              <label className="flex flex-col text-xs text-warm-700">Date
                 <input type="date" required value={visitDate} onChange={(e) => setVisitDate(e.target.value)}
                   className="bg-white border border-cream-300 rounded-lg px-2 py-1 mt-1" /></label>
-              <label className="flex flex-col text-xs text-warm-700">who came (comma separated)
+              <label className="flex flex-col text-xs text-warm-700">Who Came (comma separated)
                 <input value={whoCame} onChange={(e) => setWhoCame(e.target.value)}
                   className="bg-white border border-cream-300 rounded-lg px-2 py-1 mt-1" /></label>
-              <label className="flex flex-col text-xs text-warm-700">notes
+              <label className="flex flex-col text-xs text-warm-700">Notes
                 <textarea rows={2} value={visitNotes} onChange={(e) => setVisitNotes(e.target.value)}
                   className="bg-white border border-cream-300 rounded-lg px-2 py-1 mt-1" /></label>
-              <button type="submit" className="bg-warm-500 text-white rounded-full py-1.5 text-sm hover:bg-warm-600">log it</button>
+              <button type="submit" className="bg-warm-500 text-white rounded-full py-1.5 text-sm hover:bg-warm-600">Log It</button>
             </form>
           )}
 
           {visits.length === 0 ? (
-            <p className="text-warm-700 text-sm">no visits logged yet</p>
+            <p className="text-warm-700 text-sm">No visits logged yet</p>
           ) : (
             <div className="space-y-2">
               {visits.map(v => (
                 <div key={v.id} className="text-sm border-b border-dashed border-cream-300 pb-2 last:border-0">
                   <div className="flex justify-between">
                     <span className="font-medium text-warm-800">{new Date(v.visit_date).toLocaleDateString('en-US', { dateStyle: 'medium' })}</span>
-                    {v.who_came?.length > 0 && <span className="text-warm-700">with {v.who_came.join(', ')}</span>}
+                    {v.who_came?.length > 0 && <span className="text-warm-700">With {v.who_came.join(', ')}</span>}
                   </div>
                   {v.quick_notes && <p className="text-warm-700 text-xs mt-1">{v.quick_notes}</p>}
                 </div>
